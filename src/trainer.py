@@ -70,7 +70,7 @@ class Trainer:
     def validate(self,data_loader):
         lossList = []
         accList = []
-        for image,label in self.dataloader:
+        for image,label in data_loader:
 
             image = image.to(self.device)
             label = label.to(self.device).reshape((label.shape[0],1))
