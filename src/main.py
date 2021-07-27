@@ -26,9 +26,9 @@ def train_resnet(epoch=1,batch_size=16,optimizer="adam",lr=1e-4,loss_func="BCE",
     train_dataloader,val_dataloader = get_data_loader(batch_size=batch_size,mode='train',val_ratio=val_ratio)
 
     #initiate Trainer
-    training = Trainer(model,optimizer=opt,criterion=criterion, dataloader=train_dataloader,device=device,)
+    training = Trainer(model,optimizer=opt,criterion=criterion, dataloader=train_dataloader,validate_dataloader=val_dataloader , device=device,)
     training.train(epoch=epoch)
 
 
 if __name__=="__main__":
-    train_resnet(epoch=1,)
+    train_resnet(epoch=5,batch_size=128)
