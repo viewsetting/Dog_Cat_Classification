@@ -7,6 +7,10 @@ data/
 .vscode
 .idea
 
+#pycache
+**/__pycache__/
+**.pyc
+
 # Environments
 .env
 .venv
