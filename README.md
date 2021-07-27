@@ -24,6 +24,8 @@ Epoch| Train_Loss |Train_Acc |Valid_Loss |Valid_Acc
 3 | 0.0070 | 99.766 | 0.0030 | 99.905
 4 | 0.0069 | 99.781 | 0.0055 | 99.806
 
+![Accuracy on Validation Set](img/val_acc.png)
+
 ### Generate csv file for submission
 
 TBD.
