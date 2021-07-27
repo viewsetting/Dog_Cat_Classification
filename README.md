@@ -14,8 +14,8 @@ Use:
 ``python main.py``
 ## Test and Results
 
-Epoch Train_Loss Train_Acc Valid_Loss Valid_Acc
------------------------------------------------
+Epoch| Train_Loss |Train_Acc |Valid_Loss |Valid_Acc
+ --- | ------- | ---- | -------| ------
 0 | 0.0487 | 98.283 | 0.0096 | 99.751
 1 | 0.0105 | 99.691 | 0.0064 | 99.856
 2 | 0.0080 | 99.776 | 0.0039 | 99.920
