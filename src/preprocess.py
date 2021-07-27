@@ -14,7 +14,7 @@ from torchvision.models import resnet50
 
 from sklearn.model_selection import train_test_split
 
-from global_params import *
+from .global_params import *
 
 class DogCatDataset(Dataset):
     def __init__(self, imgList, dataset_path=TRAIN_DIR, mode="val", transform = None):

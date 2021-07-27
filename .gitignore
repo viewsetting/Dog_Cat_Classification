@@ -1,6 +1,9 @@
 # data set
 data/
 
+#tmp
+tmp/
+
 #env
 
 #IDE

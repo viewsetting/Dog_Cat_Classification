@@ -1,9 +1,8 @@
 import torch
-from preprocess import get_data_loader
 
-from resnet import BaseResnet
-from trainer import Trainer
-from preprocess import get_data_loader
+from src.resnet import BaseResnet
+from src.trainer import Trainer
+from src.preprocess import get_data_loader
 
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
