@@ -2,6 +2,8 @@
 
 ## About
 
+Overview on kaggle: https://www.kaggle.com/c/dogs-vs-cats/overview
+
 ## Prerequisites
 numpy
 pandas
@@ -10,10 +12,10 @@ torchvision
 tensorboard
 scikit-learn
 ## Training
-Use:
-``python main.py``
+Use: ``python main.py`` (temporarily)
 ## Test and Results
 
+### Resnet50 (finetuned) 
 Epoch| Train_Loss |Train_Acc |Valid_Loss |Valid_Acc
  --- | ------- | ---- | -------| ------
 0 | 0.0487 | 98.283 | 0.0096 | 99.751
@@ -21,3 +23,7 @@ Epoch| Train_Loss |Train_Acc |Valid_Loss |Valid_Acc
 2 | 0.0080 | 99.776 | 0.0039 | 99.920
 3 | 0.0070 | 99.766 | 0.0030 | 99.905
 4 | 0.0069 | 99.781 | 0.0055 | 99.806
+
+### Generate csv file for submission
+
+TBD.
