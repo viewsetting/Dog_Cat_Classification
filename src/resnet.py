@@ -15,9 +15,11 @@ from torch import Tensor
 #     def forward(self,x:Tensor) -> Tensor:
 #         return self.net(x)       
 
-BaseResnet = resnet50(pretrained = True,)
-BaseResnet.fc = nn.Sequential(nn.Linear(2048, 1, bias = True),
+def BaseResnet(pretrained=True,):  
+    model = resnet50(pretrained = pretrained,)
+    model.fc = nn.Sequential(nn.Linear(2048, 1, bias = True),
                                      nn.Sigmoid())
+    return model
 
 if __name__ == "__main__":
-    model = BaseResnet
+    model = BaseResnet()

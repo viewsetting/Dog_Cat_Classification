@@ -1,2 +1,2 @@
 TRAIN_DIR = './data/train/'
-TEST_DIR = './data/test1/'
+TEST_DIR = './data/test/'

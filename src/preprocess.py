@@ -50,19 +50,29 @@ class DogCatDataset(Dataset):
         return len(self.imgs)
 
     def _default_transform(self,):
-        if self.mode == 'test':
+        if self.mode == 'train':
             return T.Compose([
         T.RandomHorizontalFlip(p=0.5),
         T.RandomRotation(15),
         T.RandomCrop(204),
+        #T.CenterCrop(224),
         T.ToTensor(),
+        #T.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
         T.Normalize((0, 0, 0),(1, 1, 1))
     ])
 
-        elif self.mode =='train' or self.mode == 'val':
+        elif self.mode =='test' or self.mode == 'val':
             return T.Compose([
+       # T.RandomHorizontalFlip(p=0.5),
+        #T.RandomRotation(15),
+        #T.RandomCrop(204),
+        #T.CenterCrop(224),
         T.ToTensor(),
-        T.Normalize((0, 0, 0),(1, 1, 1))
+        #T.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
+        T.Normalize((0, 0, 0),(1, 1, 1)),
+
+        
+        
     ])
         else:
             raise NotImplementedError
@@ -73,11 +83,13 @@ def split_train_val(dir=TRAIN_DIR,val_ratio=0.2,seed=1):
 
 
 def get_test_img(dir=TEST_DIR):
-    return os.listdir(dir)
+    lst = os.listdir(dir)
+    lst.sort(key= lambda x: int(x[:-4]))
+    return lst
 
 def get_data_loader(batch_size, mode='train',dir=TRAIN_DIR,val_ratio=0.2,seed=1,num_workers=16):
     if mode == 'test':
-        test = os.listdir(dir)
+        test = get_test_img(dir)
         test_dataset = DogCatDataset(imgList=test,mode='test',dataset_path=dir,)
         return DataLoader(
             dataset=test_dataset,
@@ -107,23 +119,26 @@ def get_data_loader(batch_size, mode='train',dir=TRAIN_DIR,val_ratio=0.2,seed=1,
 
 if __name__ == "__main__":
 
-    train,val = split_train_val()
-    train_dataset = DogCatDataset(imgList=train,mode='train',dataset_path=TRAIN_DIR)
-    train_data_loader = DataLoader(
-    dataset = train_dataset,
-    num_workers = 4,
-    batch_size = 16,
-    shuffle = True
-)
-    import matplotlib.pyplot as plt
-    from torchvision.utils import make_grid
-    for image, labels in train_data_loader:
+#     train,val = split_train_val()
+#     train_dataset = DogCatDataset(imgList=train,mode='train',dataset_path=TRAIN_DIR)
+#     train_data_loader = DataLoader(
+#     dataset = train_dataset,
+#     num_workers = 4,
+#     batch_size = 16,
+#     shuffle = True
+# )
+#     import matplotlib.pyplot as plt
+#     from torchvision.utils import make_grid
+#     for image, labels in train_data_loader:
     
-        fig, ax = plt.subplots(figsize = (10, 10))
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.imshow(make_grid(image, 4).permute(1,2,0))
+#         fig, ax = plt.subplots(figsize = (10, 10))
+#         ax.set_xticks([])
+#         ax.set_yticks([])
+#         ax.imshow(make_grid(image, 4).permute(1,2,0))
 
-        plt.savefig('/home/viewsetting/Documents/Dog_Cat_Classification/tmp/train.jpg')
-        break
+#         plt.savefig('/home/viewsetting/Documents/Dog_Cat_Classification/tmp/train.jpg')
+#         break
+#     pass
+
     pass
+    print(get_test_img(dir=TEST_DIR)[:10])

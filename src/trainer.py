@@ -48,10 +48,7 @@ class Trainer:
                 accList.append(acc_num)
 
                 loss.backward()
-                self.optimizer.step()
-
-                self.writer.add_scalar('Loss/train', loss_num, global_step)
-
+                self.optimizer.step()                
 
                 print("Step: {}  loss: {}  acc: {}".format(step,loss_num,acc_num))
                 step +=1
@@ -59,11 +56,12 @@ class Trainer:
 
             loss_mean = np.mean(lossList)
             acc_mean = np.mean(accList)
+            self.writer.add_scalar('Train/Loss', loss_mean, epoch_idx)
             
             print("=============\nEpoch {} :  Loss Mean: {}  Accuracy Mean: {}".format(epoch_idx,loss_mean,acc_mean))
             _,val_acc = self.validate(self.validate_dataloader)
             torch.save(self.model.state_dict(),self.model_save_path+'epoch_num_{}.pth'.format(epoch_idx))
-            self.writer.add_scalar('Validation/train', val_acc, epoch_idx)
+            self.writer.add_scalar('Validation/Acc', val_acc, epoch_idx)
 
         return self.model
     
