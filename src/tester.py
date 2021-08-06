@@ -18,16 +18,31 @@ class Tester:
         self.result_binary = []
         cnt=0
         with torch.no_grad():
-            for image in self.dataloader:
+            for imageL in self.dataloader:
                 #print(cnt)
                 cnt+=1
-                image = image.to(self.device)
+                #image = image.to(self.device)
+                #image = image.to(self.device)
+                #print(imageL)
+                image = [im.to(self.device) for im in imageL]
+
+                #single tensor
+                if len(image)==1:
+                    image = image[0]
 
                 outputs = self.model(image)
 
                 binary_prediction = [1 if x>=0.5 else 0 for x in outputs.cpu() ]
                 results = [x.item() for x in outputs.cpu()]
 
+                # for clipping
+                
+                for i in range(len(results)):
+                    if results[i]<0.5:
+                        results[i] = 0.05
+                    if results[i]>=0.5 :
+                        results[i] = 0.95
+                
                 self.result_list += results
                 self.result_binary += binary_prediction
             
