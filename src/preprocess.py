@@ -98,6 +98,10 @@ class DogCatDataset(Dataset):
             return self._inceptionTransform()
         elif transform == 'resnext':
             return self._resnextTransform()
+        elif transform == 'efficientnet-b4':
+            return self._efficientnetb4Transform()
+        elif transform == 'efficientnet-b6':
+            return self._efficientnetb6Transform()
         else:
             raise NotImplementedError
 
@@ -146,6 +150,69 @@ class DogCatDataset(Dataset):
             return T.Compose([
         T.Resize([299,299]),
         T.CenterCrop(299),
+        T.ToTensor(),
+        T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+       
+    ])
+
+    def _efficientnetb4Transform(self,):
+        if self.mode == 'train':
+            return T.Compose([
+        T.Resize([380,380]),
+        T.RandomHorizontalFlip(p=0.5),
+        T.RandomRotation(15),
+        #T.CenterCrop(299),
+        T.ToTensor(),
+        T.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
+
+    ])
+
+        elif self.mode =='test' or self.mode == 'val':
+            return T.Compose([
+        T.Resize([380,380]),
+        #T.CenterCrop(299),
+        T.ToTensor(),
+        T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+       
+    ])
+
+    def _efficientnetb6Transform(self,):
+        if self.mode == 'train':
+            return T.Compose([
+        T.Resize([528,528]),
+        T.RandomHorizontalFlip(p=0.5),
+        T.RandomRotation(15),
+        #T.CenterCrop(299),
+        T.ToTensor(),
+        T.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
+
+    ])
+
+        elif self.mode =='test' or self.mode == 'val':
+            return T.Compose([
+        T.Resize([528,528]),
+        #T.CenterCrop(299),
+        T.ToTensor(),
+        T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+       
+    ])
+
+    def _efficientnetb7Transform(self,):
+        if self.mode == 'train':
+            return T.Compose([
+        T.Resize([600,600]),
+        T.RandomHorizontalFlip(p=0.5),
+        T.RandomRotation(15),
+        #T.CenterCrop(299),
+        T.ToTensor(),
+        T.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225))
+
+    ])
+
+        elif self.mode =='test' or self.mode == 'val':
+            return T.Compose([
+        T.Resize([600,600]),
+        #T.CenterCrop(299),
         T.ToTensor(),
         T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
        

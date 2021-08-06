@@ -39,9 +39,9 @@ class Tester:
                 
                 # for i in range(len(results)):
                 #     if results[i]<0.5:
-                #         results[i] = 0.05
+                #         results[i] = 0.005
                 #     if results[i]>=0.5 :
-                #         results[i] = 0.95
+                #         results[i] = 0.995
                 
                 self.result_list += results
                 self.result_binary += binary_prediction

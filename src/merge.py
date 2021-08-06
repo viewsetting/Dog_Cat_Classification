@@ -3,13 +3,16 @@ import torch.nn as nn
 from torchvision.models import resnet50, inception_v3
 from torch import Tensor
 
+from efficientnet_pytorch import EfficientNet
+
 class Merge(nn.Module):
     def __init__(self,pretrained=True,freeze=False):
         super(Merge,self).__init__()
         self.resnet = get_resnet(pretrained)
         self.inceptionV3 = get_inceptionV3(pretrained)
-        self.resnext = get_resnext(pretrained)
-        self.fc = nn.Linear(2048*3,1)
+        #self.resnext = get_resnext(pretrained)
+        self.efficientnetb4 = get_efficientnet_b4(pretrained)
+        self.fc = nn.Linear(2048*2+1792,1)
         self.activation = nn.Sigmoid()
         self.dropout = nn.Dropout(p=0.5)
         self.freeze = freeze
@@ -30,7 +33,8 @@ class Merge(nn.Module):
             i_o,_ = self.inceptionV3(i)
         else:
             i_o = self.inceptionV3(i)
-        x_o = self.resnext(x)
+        #x_o = self.resnext(x)
+        x_o = self.efficientnetb4(x)
 
         merge_feature = torch.cat([r_o,i_o,x_o],-1)
         merge_feature = self.dropout(merge_feature)
@@ -70,5 +74,10 @@ def get_inceptionV3(pretrained):
     model.fc = e
     # model.fc = nn.Sequential(nn.Linear(2048,2048),
     # nn.ReLU())
+    return model
+
+def get_efficientnet_b4(pretrained):
+    model = EfficientNet.from_pretrained('efficientnet-b4')
+    model._fc = EqualLayer()
     return model
 
