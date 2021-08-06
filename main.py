@@ -33,7 +33,7 @@ def train_resnet(epoch=1,batch_size=16,optimizer="adam",lr=1e-4,loss_func="BCE",
                         model_save_path=model_save_path)
     training.train(epoch=epoch)
 
-def test_resnet(model_path='./tmp/epoch_num_4.pth',batch_size=64,csv_path="./results/baseResnet_prob.csv"):
+def test_resnet(model_path='./tmp/epoch_num_4.pth',batch_size=64,csv_path="./results/baseResnet_prob.csv",binary=True):
     model = BaseResnet(pretrained=False)
     model.load_state_dict(torch.load(model_path))
     print(model)
@@ -44,7 +44,7 @@ def test_resnet(model_path='./tmp/epoch_num_4.pth',batch_size=64,csv_path="./res
     testing = Tester(model=model,dataloader=test_dataloader,device=device)
 
     lst = testing.generate()
-    testing.outputCSV(csv_path,binary=False)
+    testing.outputCSV(csv_path,binary=binary)
     print(lst[:30])
 
     cnt = 0
@@ -106,10 +106,10 @@ def test_merge(model_path='./tmp/merge/epoch_num_2.pth',batch_size=64,csv_path="
 
 if __name__=="__main__":
     #train_resnet(epoch=5,batch_size=128,model_save_path='./tmp/transform/')
-    #test_resnet(model_path='tmp/epoch_num_1.pth',csv_path="./results/baseResnet_prob_clipped.csv")
+    test_resnet(model_path='tmp/epoch_num_1.pth',csv_path="./results/baseResnet_binary_for_submission.csv",binary=True)
     
     #train_merge(epoch=10,batch_size=64,model_save_path='./tmp/merge_fix/',log_path='./logs/merge_fix/')
-    test_merge(model_path='./tmp/merge_fix/epoch_num_3.pth',batch_size=196,csv_path="./results/Merge_fix_prob_clip.csv",binary=False)
+    test_merge(model_path='./tmp/merge_fix/epoch_num_3.pth',batch_size=196,csv_path="./results/Merge_fix_binary_for_submission.csv",binary=True)
     
     #freeze pretrained model
     #train_merge(epoch=10,batch_size=128,model_save_path='./tmp/merge_freeze/',log_path='./logs/merge_freeze/',freeze=True,optimizer='adadelta')

@@ -37,11 +37,11 @@ class Tester:
 
                 # for clipping
                 
-                for i in range(len(results)):
-                    if results[i]<0.5:
-                        results[i] = 0.05
-                    if results[i]>=0.5 :
-                        results[i] = 0.95
+                # for i in range(len(results)):
+                #     if results[i]<0.5:
+                #         results[i] = 0.05
+                #     if results[i]>=0.5 :
+                #         results[i] = 0.95
                 
                 self.result_list += results
                 self.result_binary += binary_prediction
@@ -51,8 +51,9 @@ class Tester:
     
     def outputCSV(self,output_path,binary=False):
         idx_list = [i+1 for i in range(len(self.result_list))]
+        name_list = [ 'image{}.jpg'.format(i+1) for i in range(len(self.result_list))]
         if binary:
-            dataframe = pd.DataFrame({'id':idx_list,'label':self.result_binary})
+            dataframe = pd.DataFrame({'image':name_list,'class':self.result_binary})
         else:
             dataframe = pd.DataFrame({'id':idx_list,'label':self.result_list})
         dataframe.to_csv(output_path,index=False,sep=',')
