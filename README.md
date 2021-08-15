@@ -26,6 +26,19 @@ Epoch| Train_Loss |Train_Acc |Valid_Loss |Valid_Acc
 
 ![Accuracy on Validation Set](img/val_acc.png)
 
+## merge three different pretrained models
+
+We merged resnet50, inceptionv3 and efficientnet-b4 with a concat of output feature vector. Then using a dropout layer with `p=5`.
+
+Epoch| Train_Loss |Train_Acc |Valid_Loss |Valid_Acc
+ --- | ------- | ---- | -------| ------
+0 | 0.0505 | 98.21 | 0.0278 | 99.3
+1 | 0.0183 | 99.42 | 0.0276 | 99.2
+2 | 0.0116 | 99.69 | 0.0299 | 98.0
+
+
 ### Generate csv file for submission
 
-TBD.
+run main.py
+
+use function with prefix like `test_merge(model_path='./tmp/merge_effi/epoch_num_1.pth',batch_size=100,csv_path="./results/final/test.csv",binary=True)`.
